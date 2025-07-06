@@ -77,11 +77,42 @@
         </p>
 
         <div class="product-detail__add">
-          <button id="addToCart" data-id="344YJ">Add to Cart</button>
+          <button class="addToCart" data-id="344YJ">Add to Cart</button>
         </div>
       </section>
     </main>
 
     <footer>&copy;NOT a real business</footer>
+<script type="module">
+  import { setLocalStorage, getLocalStorage } from "../js/utils.mjs";
+  import ProductData from "../js/ProductData.mjs";
+
+  const dataSource = new ProductData("tents");
+
+  function addProductToCart(product) {
+    let cart = getLocalStorage("so-cart");
+
+    // if cart is not an array, reset it
+    if (!Array.isArray(cart)) {
+      cart = [];
+    }
+    cart.push(product);
+    setLocalStorage("so-cart", cart);
+    console.log("Product added to cart:", product);
+  }
+
+  async function addToCartHandler(e) {
+    const productId = e.target.dataset.id;
+    const product = await dataSource.findProductById(productId);
+    addProductToCart(product);
+  }
+
+  console.log("Script loaded ✅");
+
+document.querySelectorAll(".addToCart").forEach(button => {
+  console.log("Button found:", button);
+  button.addEventListener("click", addToCartHandler);
+});
+</script>
   </body>
 </html>
