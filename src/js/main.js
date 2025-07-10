@@ -1,4 +1,4 @@
-import {loadProductList} from './ProductData.mjs';
+import /*{loadProductList} */ ProductDate from './ProductData.mjs';
 import {renderProductList} from './utils.mjs';
 
 async function init() {
