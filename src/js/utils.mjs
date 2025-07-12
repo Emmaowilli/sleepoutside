@@ -38,3 +38,16 @@ export function renderListWithTemplate(template, parentElement, list, position =
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function renderProductList(productList) {
+  const parentElement = document.querySelector("#product-list");
+  const template = (product) => `
+    <li>
+      <h3>${product.Name}</h3>
+      <img src="${product.Image}" alt="${product.Name}">
+      <p>Price: $${product.FinalPrice}</p>
+    </li>`;
+  
+  renderListWithTemplate(template, parentElement, productList, "afterbegin", true);
+}
+
